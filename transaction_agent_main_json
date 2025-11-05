@@ -1,0 +1,595 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a181b43f-61dd-4f70-b31a-79da46b41d2a",
+              "leftValue": "={{$json[\"isAllowed\"]}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -768,
+        -96
+      ],
+      "id": "484ce04b-8b3c-468d-801e-a71488bb8a63",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -192,
+        -112
+      ],
+      "id": "429ac811-83ea-4e2b-9a7a-cf77b7094545",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -480,
+        256
+      ],
+      "id": "ed326c32-260c-499d-b0b8-8178dac6c38d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "MPrdA64rOqbPLDlw",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -288,
+        256
+      ],
+      "id": "9f63700f-6f5b-45ec-8c1b-7770a3a68a08",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1qz4JEX3v1-Fscm3bf_b64XVi0GNghV7n7jG2mRNGRP4",
+          "mode": "list",
+          "cachedResultName": "User Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qz4JEX3v1-Fscm3bf_b64XVi0GNghV7n7jG2mRNGRP4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qz4JEX3v1-Fscm3bf_b64XVi0GNghV7n7jG2mRNGRP4/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -48,
+        256
+      ],
+      "id": "26eb0d3a-82c2-4cc3-9a86-2a5e0fbc27a7",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleApi": {
+          "id": "W287ybFjnNrP4vHA",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from datetime import date\n\n# Get today's date\ntoday = date.today()\n\nprint(today)\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        -368
+      ],
+      "id": "0371ed35-86c9-48fc-93e6-e54d64cf830f",
+      "name": "date"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -368,
+        -336
+      ],
+      "id": "0cd11e6f-b8e6-445d-b821-b49bb17440ed",
+      "name": "specific users"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "745926215274138",
+        "recipientPhoneNumber": "={{$json[\"senderNumber\"]}}",
+        "textBody": "={{$json[\"reply\"]}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        160
+      ],
+      "id": "a6f1f018-c457-4002-bb4c-f4c4a9389928",
+      "name": "request declined",
+      "webhookId": "7463bba5-34ea-461e-ae71-6a397ffe58f3",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "sc1u1XjEH1c6fLG9",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "745926215274138",
+        "recipientPhoneNumber": "+923701507971",
+        "textBody": "hy",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        224,
+        -112
+      ],
+      "id": "179c377f-2788-4a19-b52e-82405f75be9f",
+      "name": "response ",
+      "webhookId": "4c58ca13-3a9e-4bbc-83ac-75864cda609c",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "sc1u1XjEH1c6fLG9",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1K7tgSUgC3QOkTDr1_ON_oLEnTndqXtIWAEH85pi9dU0",
+          "mode": "list",
+          "cachedResultName": "Transactions",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1K7tgSUgC3QOkTDr1_ON_oLEnTndqXtIWAEH85pi9dU0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1K7tgSUgC3QOkTDr1_ON_oLEnTndqXtIWAEH85pi9dU0/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        112,
+        256
+      ],
+      "id": "1e6c9793-e1f2-4741-97ab-82c6e0ffd6b8",
+      "name": "Get row(s) in sheet in Google Sheets1",
+      "credentials": {
+        "googleApi": {
+          "id": "yWLaZXQg5soGUFKB",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1K7tgSUgC3QOkTDr1_ON_oLEnTndqXtIWAEH85pi9dU0",
+          "mode": "list",
+          "cachedResultName": "Transactions",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1K7tgSUgC3QOkTDr1_ON_oLEnTndqXtIWAEH85pi9dU0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1K7tgSUgC3QOkTDr1_ON_oLEnTndqXtIWAEH85pi9dU0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Name', ``, 'string') }}",
+            "Amount": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Amount', ``, 'string') }}",
+            "isDeposited": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('isDeposited', ``, 'string') }}",
+            "isWithdrawal": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('isWithdrawal', ``, 'string') }}",
+            "Reason of Withdrawal": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Reason_of_Withdrawal', ``, 'string') }}",
+            "Approval": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Approval', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Number",
+              "displayName": "Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Amount",
+              "displayName": "Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "isDeposited",
+              "displayName": "isDeposited",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "isWithdrawal",
+              "displayName": "isWithdrawal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reason of Withdrawal",
+              "displayName": "Reason of Withdrawal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approval",
+              "displayName": "Approval",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        288,
+        256
+      ],
+      "id": "db8465ee-e5bb-497e-b860-30104fef1f73",
+      "name": "Append row in sheet in Google Sheets",
+      "credentials": {
+        "googleApi": {
+          "id": "yWLaZXQg5soGUFKB",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1qz4JEX3v1-Fscm3bf_b64XVi0GNghV7n7jG2mRNGRP4",
+          "mode": "list",
+          "cachedResultName": "User Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qz4JEX3v1-Fscm3bf_b64XVi0GNghV7n7jG2mRNGRP4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qz4JEX3v1-Fscm3bf_b64XVi0GNghV7n7jG2mRNGRP4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Name', ``, 'string') }}",
+            "Number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Number', ``, 'string') }}",
+            "Country": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Country', ``, 'string') }}",
+            "Family_Members": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Family_Members', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Number",
+              "displayName": "Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Family_Members",
+              "displayName": "Family_Members",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        464,
+        256
+      ],
+      "id": "8849e5c7-ab16-4c99-93e2-286bb9632023",
+      "name": "Append row in sheet in Google Sheets1",
+      "credentials": {
+        "googleApi": {
+          "id": "W287ybFjnNrP4vHA",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        -368
+      ],
+      "id": "614a9af7-0f45-4e6f-a81b-17db4a1c35bb",
+      "name": "WhatsApp trigger",
+      "webhookId": "d6adfdf2-a0d6-4a2b-bf7d-a9c91ab7506d",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "7kvuTHHLDzpEcbVQ",
+          "name": "WhatsApp OAuth account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "request declined",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "response ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "date": {
+      "main": [
+        [
+          {
+            "node": "specific users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specific users": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet in Google Sheets1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp trigger": {
+      "main": [
+        [
+          {
+            "node": "date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e667b722da8da3bb703d5eb6bf1bcec8fc7c86dc97243f57fb1b435995664c4f"
+  }
+}
